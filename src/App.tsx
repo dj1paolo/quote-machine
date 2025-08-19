@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Mixtape.css";
 
 type Quote = { text: string; author: string };
 
