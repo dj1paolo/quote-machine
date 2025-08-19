@@ -1,94 +1,59 @@
-/* ===== Base ===== */
+/* ==== Base / reset ==== */
 * { box-sizing: border-box; }
-html, body, #root { height: 100%; margin: 0; }
-:root { color-scheme: dark; }
-body {
-  background: #000;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+
+/* Page wrapper (used just for centering the FCC box) */
+main {
+  min-height: 100%;
+  display: flex;
+  align-items: center;       /* vertical center (nice to have) */
+  justify-content: center;   /* <-- horizontal center */
+  padding: 24px;
+  background: #111;          /* optional; remove if you don’t want a dark bg */
 }
 
-/* ===== Full-screen background wrapper (NOT the FCC element) ===== */
-.mixtape-page {
-  position: relative;
-  min-height: 100vh;
-  background: radial-gradient(60% 60% at 50% 40%, #333 0%, #111 100%); /* fallback */
-  background-size: cover;
-  background-position: center;
-  padding: 24px 16px 40px;
-  overflow-x: hidden;
-}
-.scrim {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65));
+/* ==== FCC wrapper that MUST be centered & not full-width ==== */
+#quote-box {
+  width: clamp(280px, 90vw, 540px); /* finite width so “center” is detectable */
+  margin: 0 auto;                   /* backup centering */
+  background: #fff;
+  color: #111;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
 }
 
-/* ===== FCC-checked card: must be horizontally centered ===== */
-#quote-box.card {
-  position: relative; z-index: 1;
-  max-width: 720px;
-  width: min(92vw, 720px);
-  margin: 18vh auto 0;      /* <- auto centers horizontally */
-  background: rgba(0,0,0,.55);
-  border: 1px solid rgba(255,255,255,.15);
-  border-radius: 18px;
-  padding: 28px 24px;
+/* Contents (IDs are required by FCC) */
+#text   { margin: 0 0 .75rem; font-size: 1.25rem; line-height: 1.6; }
+#author { margin: 0 0 1rem; text-align: right; opacity: .75; }
+
+/* Row with tweet link + new quote button */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* tweet left, button right */
+  gap: .75rem;
+}
+#tweet-quote {
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: .5rem .75rem;
+  color: inherit;
+}
+#new-quote {
+  border: 0;
+  border-radius: 8px;
+  padding: .6rem 1rem;
+  cursor: pointer;
+  background: #2563eb;
   color: #fff;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(0,0,0,.35);
 }
 
-.quote  { font-size: 1.6rem; line-height: 1.35; margin: 0 0 10px; }
-.author { opacity: .9; margin: 0 0 20px; }  /* extra space before buttons */
-.actions { display: flex; gap: 10px; justify-content: center; }
-
-/* ===== Buttons ===== */
-.btn {
-  appearance: none; border: none; border-radius: 999px;
-  padding: 12px 18px; font-weight: 800; cursor: pointer;
-  color: #111; background: #fff;
-  box-shadow: 0 6px 16px rgba(0,0,0,.25);
-  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+/* Optional dark mode polish */
+@media (prefers-color-scheme: dark) {
+  main { background: #0b0b0c; }
+  #quote-box { background: #1b1b1e; color: #fff; }
+  #tweet-quote { border-color: #333; color: #fff; }
+  #new-quote { background: #3b82f6; }
 }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,.25); }
-
-.btn-outline {
-  background: transparent; color: #fff;
-  border: 1px solid rgba(255,255,255,.6);
-  padding: 10px 14px; border-radius: 999px; font-weight: 800; text-decoration: none;
-}
-.btn-outline:hover { background: rgba(255,255,255,.1); }
-
-/* ===== Bottom-right IG tag (optional) ===== */
-.watermark {
-  position: fixed; right: 16px; bottom: 14px; z-index: 40;
-  color: #fff; text-decoration: none; font-weight: 900;
-  padding: 6px 10px; border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  backdrop-filter: blur(4px);
-}
-.watermark:hover { background: rgba(255,255,255,.14); }
-
-/* ===== Opening overlay (sits above everything, doesn't affect layout) ===== */
-.overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  display: grid; place-items: center;
-  background: rgba(0,0,0,.82);
-  pointer-events: auto;              /* allow click to dismiss early */
-}
-.overlay-card {
-  text-align: center; color: #fff;
-  padding: 28px 28px 22px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
-  backdrop-filter: blur(6px);
-}
-.overlay-title   { font-size: 2rem; font-weight: 900; margin: 0 0 6px; }
-.overlay-subtitle{ opacity: .9; margin: 0 0 14px; }
-.overlay-btn     { margin-top: 2px; }
-
-/* If user doesn’t click, overlay fades and becomes inert (still visually gone) */
-@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }

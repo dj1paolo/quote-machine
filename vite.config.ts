@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/quote-machine/',      // <= repo name with trailing slash
-  build: { outDir: 'docs' }     // <= publish from docs
+  base: '/quote-machine/',   // <-- EXACTLY your repo name with trailing slash
+  build: { outDir: 'docs' }  // publish from docs
 })
