@@ -1,0 +1,94 @@
+/* ===== Base ===== */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+:root { color-scheme: dark; }
+body {
+  background: #000;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+}
+
+/* ===== Full-screen background wrapper (NOT the FCC element) ===== */
+.mixtape-page {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(60% 60% at 50% 40%, #333 0%, #111 100%); /* fallback */
+  background-size: cover;
+  background-position: center;
+  padding: 24px 16px 40px;
+  overflow-x: hidden;
+}
+.scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.65));
+}
+
+/* ===== FCC-checked card: must be horizontally centered ===== */
+#quote-box.card {
+  position: relative; z-index: 1;
+  max-width: 720px;
+  width: min(92vw, 720px);
+  margin: 18vh auto 0;      /* <- auto centers horizontally */
+  background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 18px;
+  padding: 28px 24px;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+
+.quote  { font-size: 1.6rem; line-height: 1.35; margin: 0 0 10px; }
+.author { opacity: .9; margin: 0 0 20px; }  /* extra space before buttons */
+.actions { display: flex; gap: 10px; justify-content: center; }
+
+/* ===== Buttons ===== */
+.btn {
+  appearance: none; border: none; border-radius: 999px;
+  padding: 12px 18px; font-weight: 800; cursor: pointer;
+  color: #111; background: #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); box-shadow: 0 3px 8px rgba(0,0,0,.25); }
+
+.btn-outline {
+  background: transparent; color: #fff;
+  border: 1px solid rgba(255,255,255,.6);
+  padding: 10px 14px; border-radius: 999px; font-weight: 800; text-decoration: none;
+}
+.btn-outline:hover { background: rgba(255,255,255,.1); }
+
+/* ===== Bottom-right IG tag (optional) ===== */
+.watermark {
+  position: fixed; right: 16px; bottom: 14px; z-index: 40;
+  color: #fff; text-decoration: none; font-weight: 900;
+  padding: 6px 10px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(4px);
+}
+.watermark:hover { background: rgba(255,255,255,.14); }
+
+/* ===== Opening overlay (sits above everything, doesn't affect layout) ===== */
+.overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.82);
+  pointer-events: auto;              /* allow click to dismiss early */
+}
+.overlay-card {
+  text-align: center; color: #fff;
+  padding: 28px 28px 22px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+}
+.overlay-title   { font-size: 2rem; font-weight: 900; margin: 0 0 6px; }
+.overlay-subtitle{ opacity: .9; margin: 0 0 14px; }
+.overlay-btn     { margin-top: 2px; }
+
+/* If user doesn’t click, overlay fades and becomes inert (still visually gone) */
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
