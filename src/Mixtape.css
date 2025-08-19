@@ -1,59 +1,44 @@
-/* ==== Base / reset ==== */
+/* Basic reset & page frame */
 * { box-sizing: border-box; }
-html, body, #root { height: 100%; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
 
-/* Page wrapper (used just for centering the FCC box) */
+/* Center the app area (this also vertically centers, which is fine) */
 main {
   min-height: 100%;
-  display: flex;
-  align-items: center;       /* vertical center (nice to have) */
-  justify-content: center;   /* <-- horizontal center */
-  padding: 24px;
-  background: #111;          /* optional; remove if you don’t want a dark bg */
+  display: grid;
+  place-items: center;
+  padding: 16px;
 }
 
-/* ==== FCC wrapper that MUST be centered & not full-width ==== */
+/* >>> FCC requirement: #quote-box horizontally centered <<< */
 #quote-box {
-  width: clamp(280px, 90vw, 540px); /* finite width so “center” is detectable */
-  margin: 0 auto;                   /* backup centering */
+  /* give it a width < 100% so auto margins can center it */
+  width: min(600px, 92vw);
+  margin-left: auto;   /* center horizontally */
+  margin-right: auto;  /* center horizontally */
+  padding: 16px 18px;
+
+  /* optional polish */
+  border: 1px solid rgba(0,0,0,.15);
+  border-radius: 12px;
   background: #fff;
   color: #111;
-  padding: 20px 24px;
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
 }
 
-/* Contents (IDs are required by FCC) */
-#text   { margin: 0 0 .75rem; font-size: 1.25rem; line-height: 1.6; }
-#author { margin: 0 0 1rem; text-align: right; opacity: .75; }
+#text { font-size: 1.25rem; line-height: 1.45; margin: 0 0 10px; }
+#author { margin: 0 0 14px; opacity: .8; }
 
-/* Row with tweet link + new quote button */
+/* buttons / row */
 .row {
   display: flex;
+  gap: 12px;
   align-items: center;
-  justify-content: space-between;   /* tweet left, button right */
-  gap: .75rem;
+  justify-content: space-between;
 }
-#tweet-quote {
-  text-decoration: none;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: .5rem .75rem;
-  color: inherit;
-}
-#new-quote {
-  border: 0;
-  border-radius: 8px;
-  padding: .6rem 1rem;
-  cursor: pointer;
-  background: #2563eb;
-  color: #fff;
-}
-
-/* Optional dark mode polish */
-@media (prefers-color-scheme: dark) {
-  main { background: #0b0b0c; }
-  #quote-box { background: #1b1b1e; color: #fff; }
-  #tweet-quote { border-color: #333; color: #fff; }
-  #new-quote { background: #3b82f6; }
-}
+#tweet-quote { text-decoration: none; }
+#new-quote { cursor: pointer; }
